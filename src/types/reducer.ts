@@ -37,6 +37,6 @@ export interface IProductItem {
 
 export interface IState {
   product: Array<IProductItem>;
-  // productDetail: IProductItem;
+  productDetail: IProductItem;
   error: null | boolean;
 }

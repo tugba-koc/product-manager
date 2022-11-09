@@ -10,9 +10,9 @@ export const fetchProduct = async () => {
 };
 
 // Fetch product detail
-export const fetchProductDetail = async (id: number) => {
+export const fetchProductDetail = async (id: string) => {
   try {
-    let response = await fetch(process.env.REACT_APP_BASE_URL + '/products' + id);
+    let response = await fetch(process.env.REACT_APP_BASE_URL + `/products/${id}`);
     let res = await response.json();
     return res;
   } catch (err) {

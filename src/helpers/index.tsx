@@ -12,4 +12,15 @@ const renderProduct = (value: IProductItem[], dispatch: Dispatch<any>) => {
   });
 };
 
-export { renderProduct };
+const renderProductDetail = (value: IProductItem, dispatch: Dispatch<any>) => {
+  dispatch({
+    type: ActionType.SET_PRODUCT_DETAIL,
+    payload: value,
+  });
+  dispatch({
+    type: ActionType.ERROR,
+    payload: false,
+  });
+};
+
+export { renderProduct, renderProductDetail };

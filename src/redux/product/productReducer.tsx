@@ -3,7 +3,19 @@ import { RootState } from '../store';
 
 export const productInitialState: IState = {
   product: [],
-  // productDetail: {},
+  productDetail: {
+    brand: '',
+    category: '',
+    description: '',
+    discountPercentage: 0,
+    id: 0,
+    images: [],
+    price: 0,
+    rating: 0,
+    stock: 0,
+    thumbnail: '',
+    title: '',
+  },
   error: false,
 };
 
@@ -20,7 +32,7 @@ const productReducer = (
     case ActionType.SET_PRODUCT_DETAIL:
       return {
         ...state,
-        // productDetail: {},
+        productDetail: action.payload,
       };
     case ActionType.ERROR:
       return {
@@ -34,5 +46,8 @@ const productReducer = (
 
 export const selectProductState = (state: RootState) =>
   state.productReducer?.product;
-export const selectErrorState = (state: RootState) => state.productReducer?.error;
+export const selectProductDetailState = (state: RootState) =>
+  state.productReducer?.productDetail;
+export const selectErrorState = (state: RootState) =>
+  state.productReducer?.error;
 export default productReducer;
