@@ -1,0 +1,14 @@
+@import '../../GlobalStyles/variable';
+
+.nav__main {
+    background-color: $green-color;
+    padding: 20px 0 20px 50px;
+}
+
+.nav__link {
+    color : $contrast-color;
+    font-size: $font-size-regular;
+    font-weight : $font-weight-bold;
+    text-decoration: none;
+    margin: 0 10px;
+}
