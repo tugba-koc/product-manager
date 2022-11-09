@@ -1,8 +1,12 @@
+import { Outlet } from 'react-router-dom';
 import './App.css';
+import GlobalNav from './components/GlobalNav';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
+      <GlobalNav />
+      <Outlet />
     </div>
   );
 }
