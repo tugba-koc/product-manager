@@ -1,4 +1,4 @@
-import React from 'react'
+import './style.scss'
 import { Link } from 'react-router-dom'
 import { IProductItem } from '../../../types/reducer'
 
@@ -8,8 +8,10 @@ type Props = {
 
 const ProductItem = ({item}: Props) => {
   return (
-    <div>
-      <Link to={`/products/${item.id}`}>{item.title}</Link>
+    <div className='list__item'>
+      <img className='list__item--img' src={item.thumbnail} alt='' />
+      <div className='list__item--title'><Link to={`/products/${item.id}`}>{item.title}</Link></div>
+      <div className='list__item--desc'>{item.description.slice(0,40)}...</div>
     </div>
   )
 }
