@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import './style.scss'
 
-type Props = {}
-
-const GlobalNav = (props: Props) => {
+const GlobalNav = () => {
   return (
     <div className='nav__main'>
       <Link className='nav__link' to='/'> Home </Link>

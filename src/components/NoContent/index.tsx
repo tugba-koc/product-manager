@@ -1,8 +1,4 @@
-import React from 'react';
-
-type Props = {};
-
-const NoContent = (props: Props) => {
+const NoContent = () => {
   return (
     <div className='' style={{'display':'flex', 'justifyContent': 'center', 'flexDirection': 'column'}}>
       <img style={{width: '260px', margin:'auto'}}

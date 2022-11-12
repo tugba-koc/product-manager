@@ -7,7 +7,7 @@ import {
   selectFilteredProductState,
   selectProductState,
 } from '../../redux/product/productReducer';
-import { INewProductItem, IProductItem } from '../../types/reducer';
+import { INewProductItem } from '../../types/reducer';
 import AddModal from '../AddModal';
 import NoContent from '../NoContent';
 import Pagination from '../Pagination';
@@ -184,7 +184,7 @@ const Landing = (props: Props) => {
         </div>
       ) : currentList.length ? (
         <>
-          <ProductList input={input} currentList={currentList} />
+          <ProductList currentList={currentList} />
           <Pagination
             pages={pages}
             currentPage={currentPage}

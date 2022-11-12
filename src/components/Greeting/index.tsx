@@ -1,8 +1,6 @@
 import img from '../../asset/welcome.png'
 
-type Props = {}
-
-const Greeting = (props: Props) => {
+const Greeting = () => {
   return (
     <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column-reverse'}}>
       <img style={{width: 'auto', height: '80vh', objectFit: 'cover'}} src={img} alt="" />

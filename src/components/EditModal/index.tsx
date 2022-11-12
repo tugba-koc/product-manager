@@ -1,6 +1,5 @@
 import './style.scss';
-import { IProductItem, IUpdateData } from '../../types/reducer';
-import { useDispatch } from 'react-redux';
+import { IUpdateData } from '../../types/reducer';
 
 type Props = {
   updateData: IUpdateData;

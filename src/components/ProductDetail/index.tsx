@@ -10,9 +10,7 @@ import EditModal from '../EditModal';
 import Spinner from '../Spinner';
 import './style.scss';
 
-type Props = {};
-
-const ProductDetail = (props: Props) => {
+const ProductDetail = () => {
   const [isShown, setIsShown] = useState<boolean>(false);
   const [isLoaded, setisLoaded] = useState(false);
   const [error, setError] = useState<string>('');

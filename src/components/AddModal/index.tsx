@@ -1,5 +1,5 @@
 import React from 'react';
-import { INewProductItem, IProductItem } from '../../types/reducer';
+import { INewProductItem } from '../../types/reducer';
 import './style.scss';
 
 type Props = {
