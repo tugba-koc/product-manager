@@ -23,6 +23,7 @@ const Landing = (props: Props) => {
   const [isLoaded, setisLoaded] = useState(false);
   const [rowCount, setRowCount] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [error, setError] = useState<string>('');
   const [newProductData, setNewProductData] = useState<INewProductItem>({
     brand: '',
     category: '',
@@ -38,15 +39,18 @@ const Landing = (props: Props) => {
   const dispatch = useDispatch();
   const filteredProduct = useSelector(selectFilteredProductState);
   const product = useSelector(selectProductState);
-  let ERROR_MESSAGE = '';
+  // let ERROR_MESSAGE = '';
 
   const getProductData = useCallback(async () => {
     setisLoaded(false);
     try {
       let data = await fetchProduct();
+      if (data.message) {
+        throw new Error(data.message);
+      }
       renderProduct(data, dispatch);
     } catch {
-      ERROR_MESSAGE = 'Please try again later.';
+      setError('Please try again later.');
     } finally {
       setisLoaded(true);
     }
@@ -59,14 +63,52 @@ const Landing = (props: Props) => {
 
   // save new product data
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewProductData({ ...newProductData, [e.target.name]: e.target.value });
+    let val;
+    if (e.target.files && e.target.files[0]) {
+      val = URL.createObjectURL(e.target.files[0]);
+    }
+    setNewProductData({
+      ...newProductData,
+      [e.target.name]: val ? val : e.target.value,
+    });
   };
 
   // send new product data to backend
-  const saveProduct = async (newProductData: INewProductItem) => {
-    let val = await addProduct(newProductData);
-    renderProduct([...product, val], dispatch);
-    setIsShown(false);
+  const saveProduct = async (
+    e: React.FormEvent<HTMLFormElement>,
+    newProductData: INewProductItem
+  ) => {
+    e.preventDefault();
+    // check if the input is empty or not
+    let isEmptyValue = Object.values(newProductData).some(
+      (el) => el.toString().trim().length === 0
+    );
+    try {
+      if (!isEmptyValue) {
+        let val = await addProduct(newProductData);
+        if (val.message) {
+          throw new Error(val.message);
+        }
+        renderProduct([val, ...product], dispatch);
+        setIsShown(false);
+        setNewProductData({
+          brand: '',
+          category: '',
+          description: '',
+          discountPercentage: 0,
+          images: [],
+          price: 0,
+          rating: 0,
+          stock: 0,
+          thumbnail: '',
+          title: '',
+        });
+      } else {
+        alert('Please type something, not leave blank.');
+      }
+    } catch {
+      setError('Please try again later.');
+    }
   };
 
   // save search text and send it to backend
@@ -77,11 +119,14 @@ const Landing = (props: Props) => {
       let val = e.target.value;
       if (val.trim().length) {
         let res = await searchProduct(e.target.value); // i didnt select input state because setInput runs async
+        if (res.message) {
+          throw new Error(res.message);
+        }
         renderFilteredProduct(res, dispatch);
       }
       setCurrentPage(1);
     } catch {
-      ERROR_MESSAGE = 'Please try again later.';
+      setError('Please try again later.');
     } finally {
       setisLoaded(true);
     }
@@ -109,7 +154,7 @@ const Landing = (props: Props) => {
     currentList = product.slice(start, end);
   } else {
     currentList = filteredProduct.slice(start, end);
-  } 
+  }
 
   return (
     <div className='main__Outer'>
@@ -133,8 +178,10 @@ const Landing = (props: Props) => {
       </div>
       {!isLoaded ? (
         <Spinner />
-      ) : ERROR_MESSAGE ? (
-        <div style={{ color: 'red' }}>{ERROR_MESSAGE}</div>
+      ) : error.length ? (
+        <div style={{ color: 'red', textAlign: 'center', marginTop: '60px' }}>
+          {error}
+        </div>
       ) : currentList.length ? (
         <>
           <ProductList input={input} currentList={currentList} />
@@ -152,6 +199,7 @@ const Landing = (props: Props) => {
 
       {isShown ? (
         <AddModal
+          setNewProductData={setNewProductData}
           setIsShown={setIsShown}
           saveProduct={saveProduct}
           newProductData={newProductData}

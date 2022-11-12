@@ -3,10 +3,14 @@ import { INewProductItem, IProductItem } from '../../types/reducer';
 import './style.scss';
 
 type Props = {
-  saveProduct: (newProductData: INewProductItem) => void;
+  saveProduct: (
+    e: React.FormEvent<HTMLFormElement>,
+    newProductData: INewProductItem
+  ) => void;
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   newProductData: INewProductItem;
   setIsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  setNewProductData: React.Dispatch<React.SetStateAction<INewProductItem>>;
 };
 
 const AddModal = ({
@@ -14,10 +18,14 @@ const AddModal = ({
   newProductData,
   onChangeHandler,
   setIsShown,
+  setNewProductData,
 }: Props) => {
   return (
     <div className='add-modal--Inner'>
-      <form className='add-modal--content'>
+      <form
+        onSubmit={(e) => saveProduct(e, newProductData)}
+        className='add-modal--content'
+      >
         <label htmlFor='title'>Title</label>
         <input
           required
@@ -84,21 +92,39 @@ const AddModal = ({
         />
         <label htmlFor='images'>Images</label>
         <input
+          required
           onChange={(e) => onChangeHandler(e)}
           type='file'
-          value={newProductData.images}
           name='images'
         />
         <label htmlFor='thumbnail'>Thumbnail</label>
         <input
+          required
           onChange={(e) => onChangeHandler(e)}
           type='file'
-          value={newProductData.thumbnail}
           name='thumbnail'
         />
         <div className='button-group'>
-          <button onClick={() => setIsShown(false)}>cancel</button>
-          <button onSubmit={() => saveProduct(newProductData)}>save</button>
+          <button
+            onClick={() => {
+              setIsShown(false);
+              setNewProductData({
+                brand: '',
+                category: '',
+                description: '',
+                discountPercentage: 0,
+                images: [],
+                price: 0,
+                rating: 0,
+                stock: 0,
+                thumbnail: '',
+                title: '',
+              });
+            }}
+          >
+            cancel
+          </button>
+          <button>save</button>
         </div>
       </form>
     </div>

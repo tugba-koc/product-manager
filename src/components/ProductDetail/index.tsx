@@ -15,6 +15,7 @@ type Props = {};
 const ProductDetail = (props: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
   const [isLoaded, setisLoaded] = useState(false);
+  const [error, setError] = useState<string>('');
   const [updateData, setUpdateData] = useState<IUpdateData>({
     title: '',
     brand: '',
@@ -23,17 +24,18 @@ const ProductDetail = (props: Props) => {
   const productDetail = useSelector(selectProductDetailState);
   const dispatch = useDispatch();
   let { id } = useParams();
-  let ERROR_MESSAGE = '';
 
   const getProductDetail = useCallback(
     async (id: string) => {
       try {
         setisLoaded(false);
-        await fetchProductDetail(id).then((data) =>
-          renderProductDetail(data, dispatch)
-        );
+        let data = await fetchProductDetail(id);
+        if (data.message) {
+          throw new Error(data.message);
+        }
+        renderProductDetail(data, dispatch);
       } catch {
-        ERROR_MESSAGE = 'Please try again later.';
+        setError('Please try again later.');
       } finally {
         setisLoaded(true);
       }
@@ -58,28 +60,41 @@ const ProductDetail = (props: Props) => {
     });
   };
 
-  const saveProductDetail = async (e: any, id: string, data: IUpdateData) => {
+  const saveProductDetail = async (
+    e: React.FormEvent<HTMLFormElement>,
+    id: string,
+    data: IUpdateData
+  ) => {
     e.preventDefault();
     // check if the input is empty or not
-    let isEmptyValue = Object.values(data).some((el) => el.toString().trim().length === 0);
+    let isEmptyValue = Object.values(data).some(
+      (el) => el.toString().trim().length === 0
+    );
     try {
-      
       if (!isEmptyValue) {
         let val = await updateProductDetail(id, data);
+        if (val.message) {
+          throw new Error(val.message);
+        }
         renderProductDetail(val, dispatch);
         setIsShown(false);
       } else {
-        alert('Please type something, not leave blank.')
+        alert('Please type something, not leave blank.');
       }
-    } catch {
-      ERROR_MESSAGE = 'Please try again later.';
-    } 
+    } catch (err) {
+      setError('Please try again later.');
+    }
   };
+
+  if (error) {
+    return (
+      <div style={{ color: 'red', textAlign: 'center', marginTop: '60px' }}>
+        {error}
+      </div>
+    );
+  }
   if (!isLoaded) {
     return <Spinner />;
-  }
-  if (ERROR_MESSAGE) {
-    return <div style={{ color: 'red' }}>{ERROR_MESSAGE}</div>;
   }
   return (
     <div className='product-detail--Outer'>
@@ -107,13 +122,13 @@ const ProductDetail = (props: Props) => {
           title : {productDetail.title}
         </p>
         <p className='product-detail--text-block'>
-          price : {productDetail.price}
+          price : {productDetail.price} $
         </p>
         <p className='product-detail--description'>
           {productDetail.description}
         </p>
         <div className='product-detail--image-gallery'>
-          {productDetail.images.map((img, index) => (
+          {productDetail?.images.map((img, index) => (
             <img
               className='single-detail--image'
               key={index}
