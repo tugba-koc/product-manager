@@ -38,7 +38,7 @@ const ProductDetail = () => {
         setisLoaded(true);
       }
     },
-    [id]
+    [dispatch]
   );
 
   useEffect(() => {

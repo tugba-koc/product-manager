@@ -54,12 +54,12 @@ const Landing = (props: Props) => {
     } finally {
       setisLoaded(true);
     }
-  }, []);
+  }, [dispatch]);
 
   // Load all product data initially
   useEffect(() => {
     getProductData();
-  }, []);
+  }, [getProductData]);
 
   // save new product data
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
