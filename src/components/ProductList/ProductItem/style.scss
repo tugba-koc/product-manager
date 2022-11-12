@@ -1,34 +1,31 @@
 @import '../../../GlobalStyles//variable';
 
 .list__item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 18px 0;
-    padding: 0 0 10px 0;
-    border-bottom: 1px solid $grey-color;
-}
-
-.list__item--img {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  object-fit: cover;
-  margin-right: 22px;
-}
-
-.list__item--title {
-  color: $primary-color;
-  font-size: $font-size-small;
-  font-weight: $font-weight-bold;
-  a {
-    color: $link-color;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 18px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid $grey-color;
+  .list__item--img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 22px;
   }
-}
-
-.list__item--desc {
-  color: $dark-grey-color;
-  font-size: $font-size-small;
-  font-weight: $font-weight-regular;
-  margin-left: auto;
+  .list__item--title {
+    color: $primary-color;
+    font-size: $font-size-small;
+    font-weight: $font-weight-bold;
+    a {
+      color: $link-color;
+    }
+  }
+  .list__item--desc {
+    color: $dark-grey-color;
+    font-size: $font-size-small;
+    font-weight: $font-weight-regular;
+    margin-left: auto;
+  }
 }

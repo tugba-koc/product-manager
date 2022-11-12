@@ -14,7 +14,7 @@
   border-bottom: 1px solid rgba(126, 122, 122, 0.5);
 }
 
-.list__item--img {
+.list__item .list__item--img {
   width: 60px;
   height: 60px;
   border-radius: 12px;
@@ -23,17 +23,17 @@
   margin-right: 22px;
 }
 
-.list__item--title {
+.list__item .list__item--title {
   color: #000;
   font-size: 18px;
   font-weight: 700;
 }
 
-.list__item--title a {
+.list__item .list__item--title a {
   color: #083787;
 }
 
-.list__item--desc {
+.list__item .list__item--desc {
   color: #7e7a7a;
   font-size: 18px;
   font-weight: 400;

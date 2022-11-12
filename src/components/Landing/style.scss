@@ -4,25 +4,22 @@
 .main__Outer {
   margin-top: 30px;
   padding: 0 60px 0 60px;
+  .main__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .main__header--search-bar {
+      @extend .input;
+      width: 320px;
+    }
+    .main__header--add-btn {
+      @extend .button;
+    }
+    .main__header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
 }
 
-.main__header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.main__header--search-bar {
-  @extend .input;
-  width: 320px;
-}
-
-.main__header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.main__header--add-btn {
-  @extend .button;
-}

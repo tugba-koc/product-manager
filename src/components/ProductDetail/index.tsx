@@ -7,12 +7,14 @@ import { renderProductDetail } from '../../helpers';
 import { selectProductDetailState } from '../../redux/product/productReducer';
 import { IProductItem, IUpdateData } from '../../types/reducer';
 import EditModal from '../EditModal';
+import Spinner from '../Spinner';
 import './style.scss';
 
 type Props = {};
 
 const ProductDetail = (props: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
+  const [isLoaded, setisLoaded] = useState(false);
   const [updateData, setUpdateData] = useState<IUpdateData>({
     title: '',
     brand: '',
@@ -21,12 +23,20 @@ const ProductDetail = (props: Props) => {
   const productDetail = useSelector(selectProductDetailState);
   const dispatch = useDispatch();
   let { id } = useParams();
+  let ERROR_MESSAGE = '';
 
   const getProductDetail = useCallback(
     async (id: string) => {
-      await fetchProductDetail(id).then((data) =>
-        renderProductDetail(data, dispatch)
-      );
+      try {
+        setisLoaded(false);
+        await fetchProductDetail(id).then((data) =>
+          renderProductDetail(data, dispatch)
+        );
+      } catch {
+        ERROR_MESSAGE = 'Please try again later.';
+      } finally {
+        setisLoaded(true);
+      }
     },
     [id]
   );
@@ -48,12 +58,29 @@ const ProductDetail = (props: Props) => {
     });
   };
 
-  const saveProductDetail = async (id: string, data: IUpdateData) => {
-    let val = await updateProductDetail(id, data);
-    renderProductDetail(val, dispatch);
-    setIsShown(false);
+  const saveProductDetail = async (e: any, id: string, data: IUpdateData) => {
+    e.preventDefault();
+    // check if the input is empty or not
+    let isEmptyValue = Object.values(data).some((el) => el.toString().trim().length === 0);
+    try {
+      
+      if (!isEmptyValue) {
+        let val = await updateProductDetail(id, data);
+        renderProductDetail(val, dispatch);
+        setIsShown(false);
+      } else {
+        alert('Please type something, not leave blank.')
+      }
+    } catch {
+      ERROR_MESSAGE = 'Please try again later.';
+    } 
   };
-
+  if (!isLoaded) {
+    return <Spinner />;
+  }
+  if (ERROR_MESSAGE) {
+    return <div style={{ color: 'red' }}>{ERROR_MESSAGE}</div>;
+  }
   return (
     <div className='product-detail--Outer'>
       <button
@@ -62,13 +89,17 @@ const ProductDetail = (props: Props) => {
       >
         Edit
       </button>
-      
+
       <div className='product-detail--Inner'>
-      <img
-        className='product-detail--image'
-        src={productDetail.thumbnail}
-        alt=''
-      />
+        <img
+          className='product-detail--image'
+          src={
+            productDetail.thumbnail
+              ? productDetail.thumbnail
+              : 'https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png'
+          }
+          alt=''
+        />
         <p className='product-detail--text-block'>
           brand : {productDetail.brand}
         </p>

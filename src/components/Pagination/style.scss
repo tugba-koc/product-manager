@@ -2,25 +2,23 @@
 @import '../../GlobalStyles/variable';
 
 .pagination--block {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin: 40px auto;
-    justify-content: center;
-}
-
-.dropdown--block {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 40px auto;
+  justify-content: center;
+  .dropdown--block {
     width: 60px;
     background-color: transparent;
     padding: 6px;
-}
-
-.pagination--button {
+  }
+  .pagination--button {
     @extend .button;
     background-color: $contrast-color;
     box-shadow: none;
-    color : $primary-color;
+    color: $primary-color;
     width: 30px;
     border-radius: 0;
     font-size: $font-size-small;
+  }
 }

@@ -9,6 +9,7 @@ import {
 } from '../../redux/product/productReducer';
 import { INewProductItem, IProductItem } from '../../types/reducer';
 import AddModal from '../AddModal';
+import NoContent from '../NoContent';
 import Pagination from '../Pagination';
 import ProductList from '../ProductList';
 import Spinner from '../Spinner';
@@ -19,6 +20,7 @@ type Props = {};
 const Landing = (props: Props) => {
   const [input, setInput] = useState<string>('');
   const [isShown, setIsShown] = useState<boolean>(false);
+  const [isLoaded, setisLoaded] = useState(false);
   const [rowCount, setRowCount] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [newProductData, setNewProductData] = useState<INewProductItem>({
@@ -36,16 +38,18 @@ const Landing = (props: Props) => {
   const dispatch = useDispatch();
   const filteredProduct = useSelector(selectFilteredProductState);
   const product = useSelector(selectProductState);
+  let ERROR_MESSAGE = '';
 
   const getProductData = useCallback(async () => {
-    await fetchProduct()
-      .then((data) => {
-        renderProduct(data, dispatch);
-        // setisLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setisLoaded(false);
+    try {
+      let data = await fetchProduct();
+      renderProduct(data, dispatch);
+    } catch {
+      ERROR_MESSAGE = 'Please try again later.';
+    } finally {
+      setisLoaded(true);
+    }
   }, []);
 
   // Load all product data initially
@@ -61,20 +65,26 @@ const Landing = (props: Props) => {
   // send new product data to backend
   const saveProduct = async (newProductData: INewProductItem) => {
     let val = await addProduct(newProductData);
-    console.log(val);
     renderProduct([...product, val], dispatch);
     setIsShown(false);
   };
 
   // save search text and send it to backend
   const searchHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-    let val = e.target.value;
-    if (val.trim().length >= 2) {
-      let res = await searchProduct(e.target.value); // i didnt select input state because setInput runs async
-      renderFilteredProduct(res, dispatch);
+    try {
+      setisLoaded(false);
+      setInput(e.target.value);
+      let val = e.target.value;
+      if (val.trim().length) {
+        let res = await searchProduct(e.target.value); // i didnt select input state because setInput runs async
+        renderFilteredProduct(res, dispatch);
+      }
+      setCurrentPage(1);
+    } catch {
+      ERROR_MESSAGE = 'Please try again later.';
+    } finally {
+      setisLoaded(true);
     }
-    setCurrentPage(1);
   };
 
   const rowCountHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -99,7 +109,7 @@ const Landing = (props: Props) => {
     currentList = product.slice(start, end);
   } else {
     currentList = filteredProduct.slice(start, end);
-  }
+  } 
 
   return (
     <div className='main__Outer'>
@@ -121,7 +131,11 @@ const Landing = (props: Props) => {
           </button>
         </div>
       </div>
-      {currentList.length ? (
+      {!isLoaded ? (
+        <Spinner />
+      ) : ERROR_MESSAGE ? (
+        <div style={{ color: 'red' }}>{ERROR_MESSAGE}</div>
+      ) : currentList.length ? (
         <>
           <ProductList input={input} currentList={currentList} />
           <Pagination
@@ -132,9 +146,9 @@ const Landing = (props: Props) => {
             rowCountHandler={rowCountHandler}
           />
         </>
-      ) : currentList.length != 0 ? (
-        <Spinner />
-      ) : (<div>NO ELEMENT</div>)}
+      ) : (
+        <NoContent />
+      )}
 
       {isShown ? (
         <AddModal

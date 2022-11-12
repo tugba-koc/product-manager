@@ -63,7 +63,6 @@ export interface IState {
   filteredProduct: Array<IProductItem>;
   productDetail: IProductItem;
   error: null | boolean;
-  isLoadedProduct: boolean;
 }
 
 export interface IUpdateData {

@@ -17,7 +17,6 @@ export const productInitialState: IState = {
     title: '',
   },
   filteredProduct: [],
-  isLoadedProduct : false,
   error: false,
 };
 
@@ -30,7 +29,6 @@ const productReducer = (
       return {
         ...state,
         product: action.payload,
-        isLoadedProduct: true
       };
     case ActionType.FILTER_PRODUCT:
       return {

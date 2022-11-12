@@ -1,4 +1,4 @@
-.button, .main__header--add-btn {
+.button, .main__Outer .main__header .main__header--add-btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,13 +17,13 @@
   gap: 10px;
   cursor: pointer;
   border-radius: 12px;
-  background-color: #085100;
+  background-color: #001d91;
   color: #fff;
   font-weight: 700;
   font-size: 24px;
 }
 
-.input, .main__header--search-bar {
+.input, .main__Outer .main__header .main__header--search-bar {
   height: 30px;
   border-radius: 12px;
   border: 1px solid #7e7a7a;
@@ -81,7 +81,7 @@
   padding: 0 60px 0 60px;
 }
 
-.main__header {
+.main__Outer .main__header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -94,11 +94,11 @@
           justify-content: space-between;
 }
 
-.main__header--search-bar {
+.main__Outer .main__header .main__header--search-bar {
   width: 320px;
 }
 
-.main__header-right {
+.main__Outer .main__header .main__header-right {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

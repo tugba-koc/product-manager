@@ -24,9 +24,9 @@ const Pagination = ({
         name='rowCount'
         onChange={(e) => rowCountHandler(e)}
         value={rowCount}
-      >
+      > 
         {arr.map((el, index) => (
-          <option value={el}>{el}</option>
+          <option key={index} value={el}>{el}</option>
         ))}
       </select>
       <button

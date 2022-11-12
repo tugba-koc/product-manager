@@ -1,9 +1,9 @@
 .nav__main {
-  background-color: #085100;
+  background-color: #001d91;
   padding: 20px 0 20px 50px;
 }
 
-.nav__link {
+.nav__main .nav__link {
   color: #fff;
   font-size: 24px;
   font-weight: 700;

@@ -5,7 +5,7 @@ import { IProductItem } from '../../../types/reducer'
 type Props = {
   item : IProductItem
 }
-
+ 
 const ProductItem = ({item}: Props) => {
   return (
     <div className='list__item'>
