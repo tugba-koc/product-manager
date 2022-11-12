@@ -39,7 +39,6 @@ const Landing = (props: Props) => {
   const dispatch = useDispatch();
   const filteredProduct = useSelector(selectFilteredProductState);
   const product = useSelector(selectProductState);
-  // let ERROR_MESSAGE = '';
 
   const getProductData = useCallback(async () => {
     setisLoaded(false);
