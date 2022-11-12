@@ -7,12 +7,18 @@
   margin: 18px 0;
   padding: 0 0 10px 0;
   border-bottom: 1px solid $grey-color;
+  @media only screen and (max-width: 820px) {
+    display: grid;
+  }
   .list__item--img {
     width: 100px;
     height: 80px;
     border-radius: 12px;
     object-fit: cover;
     margin-right: 22px;
+    @media only screen and (max-width: 820px) {
+      grid-row: 1;
+    }
   }
   .list__item--title {
     color: $primary-color;
@@ -21,11 +27,20 @@
     a {
       color: $link-color;
     }
+    @media only screen and (max-width: 820px) {
+      grid-row: 1;
+    }
   }
   .list__item--desc {
     color: $dark-grey-color;
     font-size: $font-size-small;
     font-weight: $font-weight-regular;
     margin-left: auto;
+    @media only screen and (max-width: 820px) {
+      grid-row: 2;
+      margin-left: 0;
+      min-width: 150px;
+      margin-top: 12px;
+    }
   }
 }

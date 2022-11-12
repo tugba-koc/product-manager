@@ -10,6 +10,7 @@ const ProductItem = ({ item }: Props) => {
   return (
     <div className='list__item'>
       <img
+        loading='lazy'
         className='list__item--img'
         src={
           item.thumbnail

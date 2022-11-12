@@ -130,6 +130,7 @@ const ProductDetail = (props: Props) => {
         <div className='product-detail--image-gallery'>
           {productDetail?.images.map((img, index) => (
             <img
+              loading='lazy'
               className='single-detail--image'
               key={index}
               src={img}
