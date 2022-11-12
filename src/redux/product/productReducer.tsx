@@ -16,6 +16,8 @@ export const productInitialState: IState = {
     thumbnail: '',
     title: '',
   },
+  filteredProduct: [],
+  isLoadedProduct : false,
   error: false,
 };
 
@@ -28,6 +30,12 @@ const productReducer = (
       return {
         ...state,
         product: action.payload,
+        isLoadedProduct: true
+      };
+    case ActionType.FILTER_PRODUCT:
+      return {
+        ...state,
+        filteredProduct: action.payload,
       };
     case ActionType.SET_PRODUCT_DETAIL:
       return {
@@ -46,6 +54,8 @@ const productReducer = (
 
 export const selectProductState = (state: RootState) =>
   state.productReducer?.product;
+export const selectFilteredProductState = (state: RootState) =>
+  state.productReducer?.filteredProduct;
 export const selectProductDetailState = (state: RootState) =>
   state.productReducer?.productDetail;
 export const selectErrorState = (state: RootState) =>

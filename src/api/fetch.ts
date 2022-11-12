@@ -1,4 +1,4 @@
-import { IUpdateData } from './../types/reducer';
+import { IUpdateData, INewProductItem } from './../types/reducer';
 
 // Get all product data
 export const fetchProduct = async () => {
@@ -43,10 +43,10 @@ export const updateProductDetail = async (id: string, data: IUpdateData) => {
 };
 
 // Patch product detail
-export const addProduct = async (data: IUpdateData) => {
+export const addProduct = async (data: INewProductItem) => {
   try {
     let response = await fetch(
-      process.env.REACT_APP_BASE_URL + `/products`,
+      process.env.REACT_APP_BASE_URL + `/products/add`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -55,6 +55,25 @@ export const addProduct = async (data: IUpdateData) => {
     );
     let res = await response.json();
     return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Search product
+export const searchProduct = async (val: String) => {
+  try {
+    let response = await fetch(
+      process.env.REACT_APP_BASE_URL + `/products/search?` + `q=${val}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    let res = await response.json();
+    console.log('test');
+
+    return res.products;
   } catch (err) {
     console.log(err);
   }

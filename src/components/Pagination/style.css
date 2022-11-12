@@ -1,0 +1,109 @@
+.button, .pagination--button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 8px 42px;
+  height: 34px;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+  background-color: #085100;
+  color: #fff;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.input {
+  height: 30px;
+  border-radius: 12px;
+  border: 1px solid #7e7a7a;
+  outline: none;
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 10px;
+}
+
+.align-start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.justify-align-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.justify-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pagination--block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  margin: 40px auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.dropdown--block {
+  width: 60px;
+  background-color: transparent;
+  padding: 6px;
+}
+
+.pagination--button {
+  background-color: #fff;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #000;
+  width: 30px;
+  border-radius: 0;
+  font-size: 18px;
+}
+/*# sourceMappingURL=style.css.map */

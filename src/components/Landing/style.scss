@@ -1,5 +1,5 @@
 @import '../../GlobalStyles/variable';
-@import '../../GlobalStyles/inheritance'; 
+@import '../../GlobalStyles/inheritance';
 
 .main__Outer {
   margin-top: 30px;
@@ -13,14 +13,8 @@
 }
 
 .main__header--search-bar {
-  height: 40px;
-  border-radius: 12px;
-  border: 1px solid $dark-grey-color;
-  outline: none;
-  color: $primary-color;
-  font-size: $font-size-regular;
-  font-weight: $font-weight-regular;
-  padding-left: 10px;
+  @extend .input;
+  width: 320px;
 }
 
 .main__header-right {

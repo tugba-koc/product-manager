@@ -16,7 +16,7 @@ const ProductDetail = (props: Props) => {
   const [updateData, setUpdateData] = useState<IUpdateData>({
     title: '',
     brand: '',
-    description: '',
+    price: 0,
   });
   const productDetail = useSelector(selectProductDetailState);
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const ProductDetail = (props: Props) => {
     setUpdateData({
       title: data.title,
       brand: data.brand,
-      description: data.description,
+      price: data.price,
     });
   };
 
@@ -55,24 +55,46 @@ const ProductDetail = (props: Props) => {
   };
 
   return (
-    <div>
-      <button onClick={() => editHandler(productDetail)}>Edit</button>
-      <div>
-        <img src={productDetail.thumbnail} alt='' />
-        <p>
-          {' '}
-          <span>{productDetail.category}</span>{' '}
-          <span>{productDetail.title}</span>
+    <div className='product-detail--Outer'>
+      <button
+        className='product-detail--edit-button'
+        onClick={() => editHandler(productDetail)}
+      >
+        Edit
+      </button>
+      
+      <div className='product-detail--Inner'>
+      <img
+        className='product-detail--image'
+        src={productDetail.thumbnail}
+        alt=''
+      />
+        <p className='product-detail--text-block'>
+          brand : {productDetail.brand}
         </p>
-        <p>{productDetail.description}</p>
-        <div>
+        <p className='product-detail--text-block'>
+          title : {productDetail.title}
+        </p>
+        <p className='product-detail--text-block'>
+          price : {productDetail.price}
+        </p>
+        <p className='product-detail--description'>
+          {productDetail.description}
+        </p>
+        <div className='product-detail--image-gallery'>
           {productDetail.images.map((img, index) => (
-            <img key={index} src={img} alt='' />
+            <img
+              className='single-detail--image'
+              key={index}
+              src={img}
+              alt=''
+            />
           ))}
         </div>
       </div>
       {isShown ? (
         <EditModal
+          setIsShown={setIsShown}
           id={id}
           saveProductDetail={saveProductDetail}
           updateData={updateData}

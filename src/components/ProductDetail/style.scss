@@ -1,0 +1,49 @@
+@import '../../GlobalStyles//inheritance';
+@import '../../GlobalStyles/variable';
+
+.product-detail--Inner {
+  width: 90%;
+  margin: auto;
+  // display: flex;
+  // flex-direction: column;
+}
+
+.product-detail--image {
+  width: auto;
+  height: 300px;
+  object-fit: contain;
+}
+
+.product-detail--text-block {
+  font-size: $font-size-smaller;
+  font-weight: $font-weight-bold;
+  padding: 0;
+}
+
+.product-detail--description {
+  font-size: $font-size-small;
+  font-weight: $font-weight-regular;
+  margin: 60px 0;
+  font-style: italic;
+}
+
+.product-detail--image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.single-detail--image {
+  width: 30%;
+  height: 200px;
+  object-fit: cover;
+  margin: 8px;
+}
+
+.product-detail--edit-button {
+  @extend .button;
+  box-shadow: none;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: 30px;
+}
