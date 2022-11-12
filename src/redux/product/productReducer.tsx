@@ -17,7 +17,6 @@ export const productInitialState: IState = {
     title: '',
   },
   filteredProduct: [],
-  error: false,
 };
 
 const productReducer = (
@@ -40,11 +39,6 @@ const productReducer = (
         ...state,
         productDetail: action.payload,
       };
-    case ActionType.ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
     default:
       return state;
   }
@@ -56,6 +50,4 @@ export const selectFilteredProductState = (state: RootState) =>
   state.productReducer?.filteredProduct;
 export const selectProductDetailState = (state: RootState) =>
   state.productReducer?.productDetail;
-export const selectErrorState = (state: RootState) =>
-  state.productReducer?.error;
 export default productReducer;

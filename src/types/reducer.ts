@@ -2,7 +2,6 @@ export enum ActionType {
   SET_PRODUCT = 'SET_PRODUCT',
   FILTER_PRODUCT = 'FILTER_PRODUCT',
   SET_PRODUCT_DETAIL = 'SET_PRODUCT_DETAIL',
-  ERROR = 'SET_ERROR',
 }
 
 export interface SetProductAction {
@@ -20,16 +19,10 @@ export interface SetProductDetailAction {
   payload: IProductItem;
 }
 
-export interface ErrorAction {
-  type: ActionType.ERROR;
-  payload: null | boolean;
-}
-
 export type IAction =
   | SetProductAction
   | SetFilterProductAction
-  | ErrorAction
-  | SetProductDetailAction;
+  | SetProductDetailAction
 
 export interface IProductItem {
   brand: string;
@@ -61,8 +54,7 @@ export interface INewProductItem {
 export interface IState {
   product: Array<IProductItem>;
   filteredProduct: Array<IProductItem>;
-  productDetail: IProductItem;
-  error: null | boolean;
+  productDetail: IProductItem
 }
 
 export interface IUpdateData {

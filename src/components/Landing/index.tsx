@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addProduct, fetchProduct, searchProduct } from '../../api/fetch';
+import { useOutletContext } from 'react-router-dom';
+import { addProduct, searchProduct } from '../../api/fetch';
 import { renderFilteredProduct, renderProduct } from '../../helpers';
 import {
   selectFilteredProductState,
@@ -15,15 +16,17 @@ import ProductList from '../ProductList';
 import Spinner from '../Spinner';
 import './style.scss';
 
-type Props = {};
-
-const Landing = (props: Props) => {
+const Landing = () => {
+  const { isLoaded, error, setisLoaded, setError } = useOutletContext<{
+    isLoaded: boolean;
+    error: string;
+    setisLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+    setError: React.Dispatch<React.SetStateAction<string>>;
+  }>();
   const [input, setInput] = useState<string>('');
   const [isShown, setIsShown] = useState<boolean>(false);
-  const [isLoaded, setisLoaded] = useState(false);
   const [rowCount, setRowCount] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [error, setError] = useState<string>('');
   const [newProductData, setNewProductData] = useState<INewProductItem>({
     brand: '',
     category: '',
@@ -39,26 +42,6 @@ const Landing = (props: Props) => {
   const dispatch = useDispatch();
   const filteredProduct = useSelector(selectFilteredProductState);
   const product = useSelector(selectProductState);
-
-  const getProductData = useCallback(async () => {
-    setisLoaded(false);
-    try {
-      let data = await fetchProduct();
-      if (data.message) {
-        throw new Error(data.message);
-      }
-      renderProduct(data, dispatch);
-    } catch {
-      setError('Please try again later.');
-    } finally {
-      setisLoaded(true);
-    }
-  }, [dispatch]);
-
-  // Load all product data initially
-  useEffect(() => {
-    getProductData();
-  }, [getProductData]);
 
   // save new product data
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +72,6 @@ const Landing = (props: Props) => {
           throw new Error(val.message);
         }
         renderProduct([val, ...product], dispatch);
-        setIsShown(false);
         setNewProductData({
           brand: '',
           category: '',
@@ -102,6 +84,7 @@ const Landing = (props: Props) => {
           thumbnail: '',
           title: '',
         });
+        setIsShown(false);
       } else {
         alert('Please type something, not leave blank.');
       }
