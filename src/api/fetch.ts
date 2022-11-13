@@ -64,7 +64,7 @@ export const addProduct = async (data: INewProductItem) => {
 export const searchProduct = async (val: String) => {
   try {
     let response = await fetch(
-      process.env.REACT_APP_BASE_URL + `/products/search?` + `q=${val}`,
+      process.env.REACT_APP_BASE_URL + `/products/search?q=${val}`,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
