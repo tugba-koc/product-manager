@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
@@ -93,24 +93,23 @@ const Landing = () => {
     }
   };
 
-  // save search text and send it to backend
+  // Debouncing and send it to backend
+  useEffect(() => {
+    const getData = setTimeout(() => {
+      searchProduct(input)
+        .then((res) => renderFilteredProduct(res, dispatch))
+        .catch((err) => setError('Please try again later.'))
+        .finally(() => setisLoaded(true));
+    }, 1200);
+    return () => clearTimeout(getData);
+  }, [input, dispatch, setError, setisLoaded]);
+
+  // save search text
   const searchHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    try {
+    if (e.target.value !== ' ') {
       setisLoaded(false);
       setInput(e.target.value);
-      let val = e.target.value;
-      if (val.trim().length) {
-        let res = await searchProduct(e.target.value); // i didnt select input state because setInput runs async
-        if (res.message) {
-          throw new Error(res.message);
-        }
-        renderFilteredProduct(res, dispatch);
-      }
       setCurrentPage(1);
-    } catch {
-      setError('Please try again later.');
-    } finally {
-      setisLoaded(true);
     }
   };
 

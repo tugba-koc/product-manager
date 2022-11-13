@@ -71,8 +71,6 @@ export const searchProduct = async (val: String) => {
       }
     );
     let res = await response.json();
-    console.log('test');
-
     return res.products;
   } catch (err) {
     console.log(err);
