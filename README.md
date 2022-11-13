@@ -1,4 +1,4 @@
-## for [Live](https://63711178d6847d00082f1aa7--statuesque-ganache-194275.netlify.app/)
+## for [Live](https://statuesque-ganache-194275.netlify.app/)
 
 ## Getting Started with Create React App
 
